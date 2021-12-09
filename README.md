@@ -10,7 +10,7 @@
 - Steven Novaryo                     - 2006473951
 
 ### Link iCovid App:
-- (....)
+- [download iCovid App](https://github.com/stevennovaryo/icovid_app/releases/tag/0.0.1)
 
 ### Cerita aplikasi:
 Aplikasi kami bernama iCovid. Mulanya berasal dari website kami https://icovid-id.herokuapp.com yang terinspirasi dari website iMaba BEM Fasilkom UI. Harapan dari aplikasi ini adalah dapat menjadi kanal informasi mengenai Covid-19 bagi masyarakat Indonesia. Pengguna juga dapat saling berbagi wawasan melalui forum yang disediakan oleh aplikasi ini. 
@@ -92,11 +92,11 @@ module
 └── module.dart            
 ```
 
-### Integrasi Dengan Webservices ICovid
+### Integrasi Dengan Webservices iCovid
 
 Semua bagian dari aplikasi dalam module yang sebelumnya menggunakan form atau ajax akan menggunakan http request pada flutter.
 
-Mendapatkan data dari server ICovid di heroku akan menggunakan bantuan library `http 0.13.4` atau `dio 4.0.4`. Idealnya semua akan dibuat class yang akan mengatasi pemanggilan Http request ke server. Class tersebut sekaligus mengatasi permasalahan csrf token dan session cookie dari pengguna. 
+Mendapatkan data dari server iCovid di heroku akan menggunakan bantuan library `http 0.13.4` atau `dio 4.0.4`. Idealnya semua akan dibuat class yang akan mengatasi pemanggilan Http request ke server. Class tersebut sekaligus mengatasi permasalahan csrf token dan session cookie dari pengguna. 
 
 Untuk mendapatkan csrf token akan diberikan request yerlebih dahulu ke server, kemudian server akan mengembalikan csrf token. Jika csrf token kadarluarsa, maka akan dilakukan request ulang ke server. Jika session kadarluarsa, maka pengguna wajib akan dialihkan untuk login ulang. Baik csrf token dan session cookie akan disimpan ke local storage dari aplikasi.  
 
