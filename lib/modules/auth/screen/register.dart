@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/core/form/validator.dart';
 import 'package:icovid_app/modules/auth/services/services.dart';
+import 'package:icovid_app/modules/auth/widget/snackBar.dart';
 import './constants.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -128,18 +129,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (_isLoading) return;
                     setState(() { _isLoading = true; });
 
-                    dynamic response = await register(_username!, _password!, _repeatPassword!);
+                    try {
+                      dynamic response = await register(_username!, _password!, _repeatPassword!);
 
-                    if (response['status'] == 200) {
-                      networkService.username = _username;
-                      Navigator.pushReplacementNamed(context, "/home");
-                    } else {
-                      if (response['data']['error']['username'] != null) {
-                        setState(() { _usernameErrorMsg = response['data']['error']['username'][0];} );
+                      if (response['status'] == 200) {
+                        networkService.username = _username;
+                        Navigator.pushReplacementNamed(context, "/home");
+                      } else {
+                        if (response['data']['error']['username'] != null) {
+                          setState(() { _usernameErrorMsg = response['data']['error']['username'][0];} );
+                        }
+                        if (response['data']['error']['password2'] != null) {
+                          setState(() { _passwordErrorMsg = response['data']['error']['password2'][0];} );
+                        }
                       }
-                      if (response['data']['error']['password2'] != null) {
-                        setState(() { _passwordErrorMsg = response['data']['error']['password2'][0];} );
-                      }
+                    } catch (e) {
+                      showSnackBar(context, e.toString());
                     }
 
                     setState(() { _isLoading = false; });

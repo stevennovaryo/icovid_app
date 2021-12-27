@@ -22,6 +22,8 @@ class NetworkService {
   String username = "";
 
   void _updateCookie(http.Response response) {
+    if (response.headers['content-type'] == 'text/html') return;
+
     String? allSetCookie = response.headers['set-cookie'];
 
     if (allSetCookie != null) {
@@ -54,6 +56,12 @@ class NetworkService {
     }
   }
 
+  void checkStatusCode(String url, int statusCode) {
+    if (statusCode == 403) throw Exception("Forbidden");
+    if (statusCode == 500) throw Exception("Internal server error");
+    if (statusCode < 200 || statusCode > 400) throw Exception("GET $url: Error while fetching data");
+  }
+
   String _generateCookieHeader() {
     String cookie = "";
 
@@ -71,10 +79,7 @@ class NetworkService {
       // print(res);
 
       _updateCookie(response);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
+      checkStatusCode("$BACKEND_HOST/home", statusCode);
       return null;
     });
   }
@@ -84,17 +89,9 @@ class NetworkService {
     return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
-      if (statusCode == 403) {
-        throw Exception("Forbidden");
-      }
-      
-      if (response.headers['content-type'] != 'text/html') {
-        _updateCookie(response);
-      }
 
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
+      _updateCookie(response);
+      checkStatusCode(url, statusCode);
       return {'status': statusCode, 'data': _decoder.convert(res)};
     });
   }
@@ -103,19 +100,9 @@ class NetworkService {
     return http.post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
-      if (statusCode == 403) {
-        throw Exception("Forbidden");
-      }
 
-      // print(response.headers);
-      if (response.headers['content-type'] != 'text/html') {
-        _updateCookie(response);
-      }
-      // print(statusCode);
-
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("POST $url: Error while fetching data");
-      }
+      _updateCookie(response);
+      checkStatusCode(url, statusCode);
       return {'status': statusCode, 'data': _decoder.convert(res)};
     });
   }
@@ -127,8 +114,9 @@ class NetworkService {
       if (e.toString() == "Exception: Forbidden") {
         await networkService.updateCSRF();
         return await networkService.post(url, body, null);
+      } else {
+        rethrow;
       }
-      rethrow;
     }
   }
 
@@ -138,13 +126,7 @@ class NetworkService {
       final int statusCode = response.statusCode;
 
       _updateCookie(response);
-
-      if (statusCode == 403) {
-        throw Exception("Forbidden");
-      }
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
-      }
+      checkStatusCode(url, statusCode);
       return {'status': statusCode, 'data': _decoder.convert(res)};
     });
   }

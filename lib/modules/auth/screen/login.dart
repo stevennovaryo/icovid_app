@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:icovid_app/core/form/validator.dart';
 import 'package:icovid_app/core/services/request.dart';
 import 'package:icovid_app/modules/auth/services/services.dart';
+import 'package:icovid_app/modules/auth/widget/snackBar.dart';
 import './constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -82,13 +83,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (!_formKey.currentState!.validate()) return;
                     setState(() { _isLoading = true; });
 
-                    dynamic response = await login(_username!, _password!);
+                    try {
+                      dynamic response = await login(_username!, _password!);
 
-                    if (response['status'] == 200) {
-                      networkService.username = _username;
-                      Navigator.pushReplacementNamed(context, "/home");
-                    } else {
-                      setState(() { _errorMsg = response['data']['message'];} );
+                      if (response['status'] == 200) {
+                        networkService.username = _username;
+                        Navigator.pushReplacementNamed(context, "/home");
+                      } else {
+                        setState(() { _errorMsg = response['data']['message'];} );
+                      }
+                    } catch (e) {
+                      showSnackBar(context, e.toString());
                     }
 
                     setState(() { _isLoading = false; });
