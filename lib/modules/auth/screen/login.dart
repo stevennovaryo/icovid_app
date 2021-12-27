@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/form/validator.dart';
 import 'package:icovid_app/core/services/request.dart';
