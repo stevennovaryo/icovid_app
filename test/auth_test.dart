@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:icovid_app/icovid.dart';
-import 'package:mockito/mockito.dart';
-
 
 void main() {
   testWidgets('Test auth hyperlinks', (WidgetTester tester) async {
