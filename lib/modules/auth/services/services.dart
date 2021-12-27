@@ -22,4 +22,5 @@ Future<dynamic> register(String username, String password, String repeatPassword
 
 void logout() {
   networkService.cookies = <String, String>{};
+  networkService.headers.removeWhere((key, value) => key == 'X-CSRFToken');
 }
