@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/core/form/validator.dart';
 import 'package:icovid_app/modules/auth/services/services.dart';
-import 'package:icovid_app/modules/auth/widget/snackBar.dart';
+import 'package:icovid_app/modules/auth/widgets/snack_bar.dart';
 import './constants.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -187,4 +187,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-

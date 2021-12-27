@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:icovid_app/core/form/validator.dart';
 import 'package:icovid_app/core/services/request.dart';
 import 'package:icovid_app/modules/auth/services/services.dart';
-import 'package:icovid_app/modules/auth/widget/snackBar.dart';
+import 'package:icovid_app/modules/auth/widgets/snack_bar.dart';
 import './constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -136,4 +136,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

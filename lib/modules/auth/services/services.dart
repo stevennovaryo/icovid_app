@@ -1,8 +1,6 @@
 import 'package:icovid_app/core/services/request.dart';
 import 'package:icovid_app/modules/auth/screen/constants.dart';
 
-
-
 Future<dynamic> login(String username, String password) async {
   Map<String, String> postData = {
     "username": username,
