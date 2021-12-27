@@ -11,6 +11,7 @@
 //   - if request returns 403, then update csrf token and try again (or maybe even session cookies)
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:icovid_app/core/services/constant.dart';
 
 class NetworkService {
   final JsonDecoder _decoder = const JsonDecoder();
@@ -18,13 +19,14 @@ class NetworkService {
 
   Map<String, String> headers = {"content-type": "application/json"};
   Map<String, String> cookies = {};
+  String username = "";
 
   void _updateCookie(http.Response response) {
     String? allSetCookie = response.headers['set-cookie'];
 
     if (allSetCookie != null) {
       var setCookies = allSetCookie.split(',');
-
+      
       for (var setCookie in setCookies) {
         var cookies = setCookie.split(';');
 
@@ -46,7 +48,7 @@ class NetworkService {
 
         // ignore keys that aren't cookies
         if (key == 'path' || key == 'expires') return;
-
+        if (key == 'csrftoken') headers['X-CSRFToken'] = value;
         cookies[key] = value;
       }
     }
@@ -63,32 +65,71 @@ class NetworkService {
     return cookie;
   }
 
+  Future<dynamic> updateCSRF() {
+    return http.get(Uri.parse("$BACKEND_HOST/home"), headers: headers).then((http.Response response) {
+      final int statusCode = response.statusCode;
+      // print(res);
+
+      _updateCookie(response);
+
+      if (statusCode < 200 || statusCode > 400) {
+        throw Exception("Error while fetching data");
+      }
+      return null;
+    });
+  }
+
+
   Future<dynamic> get(String url) {
     return http.get(Uri.parse(url), headers: headers).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
-
-      _updateCookie(response);
+      if (statusCode == 403) {
+        throw Exception("Forbidden");
+      }
+      
+      if (response.headers['content-type'] != 'text/html') {
+        _updateCookie(response);
+      }
 
       if (statusCode < 200 || statusCode > 400) {
         throw Exception("Error while fetching data");
       }
-      return _decoder.convert(res);
+      return {'status': statusCode, 'data': _decoder.convert(res)};
     });
   }
 
-  Future<dynamic> post(String url, {body, encoding}) {
+  Future<dynamic> post(String url, Map<String, String> body, dynamic encoding) {
     return http.post(Uri.parse(url), body: _encoder.convert(body), headers: headers, encoding: encoding).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
+      if (statusCode == 403) {
+        throw Exception("Forbidden");
+      }
 
-      _updateCookie(response);
+      // print(response.headers);
+      if (response.headers['content-type'] != 'text/html') {
+        _updateCookie(response);
+      }
+      // print(statusCode);
 
       if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching data");
+        throw Exception("POST $url: Error while fetching data");
       }
-      return _decoder.convert(res);
+      return {'status': statusCode, 'data': _decoder.convert(res)};
     });
+  }
+
+  Future<dynamic> csrfProtectedPost(String url, Map<String, String> body, dynamic encoding) async {
+    try {
+      return await networkService.post(url, body, null);
+    } catch (e) {
+      if (e.toString() == "Exception: Forbidden") {
+        await networkService.updateCSRF();
+        return await networkService.post(url, body, null);
+      }
+      rethrow;
+    }
   }
 
   Future<dynamic> put(String url, {body, encoding}) {
@@ -98,10 +139,15 @@ class NetworkService {
 
       _updateCookie(response);
 
+      if (statusCode == 403) {
+        throw Exception("Forbidden");
+      }
       if (statusCode < 200 || statusCode > 400) {
         throw Exception("Error while fetching data");
       }
-      return _decoder.convert(res);
+      return {'status': statusCode, 'data': _decoder.convert(res)};
     });
   }
 }
+
+dynamic networkService = NetworkService();
