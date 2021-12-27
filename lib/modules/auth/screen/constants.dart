@@ -1,5 +1,7 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:icovid_app/core/services/constant.dart';
+import 'package:icovid_app/core/services/constants.dart';
 
 const Color? BG_COLOR = Colors.white;
 

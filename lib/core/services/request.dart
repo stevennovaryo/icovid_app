@@ -11,7 +11,7 @@
 //   - if request returns 403, then update csrf token and try again (or maybe even session cookies)
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:icovid_app/core/services/constant.dart';
+import 'package:icovid_app/core/services/constants.dart';
 
 class NetworkService {
   final JsonDecoder _decoder = const JsonDecoder();
