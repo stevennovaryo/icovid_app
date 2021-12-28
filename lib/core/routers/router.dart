@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/cupertino.dart';
 import 'package:icovid_app/modules/auth/screen/login.dart';
 import 'package:icovid_app/modules/auth/screen/register.dart';

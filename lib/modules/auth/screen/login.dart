@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       if (response['status'] == 200) {
                         networkService.username = _username;
-                        Navigator.pushReplacementNamed(context, "/home");
+                        Navigator.pushReplacementNamed(context, "/tracker");
                       } else {
                         setState(() { _errorMsg = response['data']['message'];} );
                       }
