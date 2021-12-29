@@ -3,7 +3,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
-import 'package:icovid_app/modules/auth/auth.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
+import 'package:icovid_app/modules/auth/auth.dart';
+import 'package:icovid_app/modules/forum/widgets/forum_home_button.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -38,7 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            const LogoutButton()
+            const LogoutButton(),
+            const ForumHomeButton(),// temporary button to forum home
           ],
         ),
       ),
