@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icovid_app/modules/tracker/widgets/statistic_card.dart';
 import 'package:icovid_app/modules/tracker/services/services.dart';
+import 'package:icovid_app/modules/tracker/widgets/daily_chart.dart';
 
 class TrackerScreen extends StatefulWidget {
   const TrackerScreen({ Key? key }) : super(key: key);
@@ -16,6 +17,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
   int _sembuh = 0;
   int _meninggal = 0;
   String _namaData = 'NASIONAL';
+  List<Map<String, dynamic>> _dataHarian = List.empty();
+
+  String _dataname = "Positif";
+  String _datasettype = "harian";
+  int _datacount = 7;
 
   Future _getDataNasional() async {
     dynamic response = await fetchDataCovid('Nasional');
@@ -39,11 +45,19 @@ class _TrackerScreenState extends State<TrackerScreen> {
     }
   }
 
+  Future _getDataHarian(int count) async {
+    dynamic response = await fetchDataHarianCovid(count);
+    setState(() {
+      _dataHarian = response.dataset;
+    });
+  }
+
   @override
   void initState(){
     super.initState();
     _namaProvinsiController = TextEditingController();
     _getDataNasional();
+    _getDataHarian(_datacount);
   }
 
   @override
@@ -74,8 +88,14 @@ class _TrackerScreenState extends State<TrackerScreen> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Center(
-              child: Text('Chart will be here'),
+            ListView(
+              children: <Widget>[
+                DailyChart(
+                  dataset: _dataHarian,
+                  dataname: _dataname,
+                  datasettype: _datasettype,
+                ),
+              ],
             ),
             ListView(
               children: <Widget>[

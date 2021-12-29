@@ -15,6 +15,14 @@ class DataCovid {
   });
 }
 
+class DataHarianCovid {
+  final List<Map<String, dynamic>> dataset;
+
+  DataHarianCovid({
+    required this.dataset,
+  });
+}
+
 Future<DataCovid> fetchDataCovid(String tipe) async {
   if (tipe == 'Nasional'){
     final response = await http.get(Uri.parse(URL_NASIONAL));
@@ -62,5 +70,26 @@ Future<DataCovid> fetchDataCovid(String tipe) async {
     else{
       throw Exception('Failed to get province data');
     }
+  }
+}
+
+Future<DataHarianCovid> fetchDataHarianCovid(int count) async {
+  final response = await http.get(Uri.parse(URL_HARIAN));
+  if (response.statusCode == 200){
+    final tmp = jsonDecode(response.body);
+    List<Map<String, dynamic>> dataset = List.filled(count, {});
+    List<Map<String, dynamic>> json = [];
+    for (Map<String, dynamic> i in tmp){
+      json.add(i);
+    }
+    int cnt = 0;
+    for (int i = json.length-count; i < json.length; i++){
+      dataset[cnt] = json[i];
+      cnt++;
+    }
+    return DataHarianCovid(dataset: dataset);
+  }
+  else{
+    throw Exception('Failed to get daily data');
   }
 }
