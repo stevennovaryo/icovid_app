@@ -22,6 +22,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   String _dataname = "Positif";
   String _datasettype = "harian";
   int _datacount = 7;
+  int _radioValue = 0;
 
   Future _getDataNasional() async {
     dynamic response = await fetchDataCovid('Nasional');
@@ -74,7 +75,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Covid Tracker'),
+          title: const Text('iCovid - Tracker'),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
@@ -90,10 +91,48 @@ class _TrackerScreenState extends State<TrackerScreen> {
           children: <Widget>[
             ListView(
               children: <Widget>[
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: Text("GRAFIK " + _datasettype.toUpperCase(), style: TextStyle(fontSize: 22),),
+                  ),
+                ),
                 DailyChart(
                   dataset: _dataHarian,
                   dataname: _dataname,
                   datasettype: _datasettype,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Radio(
+                      value: 0, 
+                      groupValue: _radioValue, 
+                      onChanged: _onRadioChanged,
+                    ),
+                    Text(
+                      'Positif',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Radio(
+                      value: 1, 
+                      groupValue: _radioValue, 
+                      onChanged: _onRadioChanged,
+                    ),
+                    Text(
+                      'Sembuh',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Radio(
+                      value: 2, 
+                      groupValue: _radioValue, 
+                      onChanged: _onRadioChanged,
+                    ),
+                    Text(
+                      'Meninggal',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -175,4 +214,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
       ],
     ),
   );
+
+  void _onRadioChanged(int? value){
+    setState(() {
+      _radioValue = value!;
+      if (value == 0) _dataname = 'Positif';
+      if (value == 1) _dataname = 'Sembuh';
+      if (value == 2) _dataname = 'Meninggal';
+    });
+  }
 }

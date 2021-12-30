@@ -21,7 +21,7 @@ class DailyChart extends StatelessWidget {
       );
     }
     return Container(
-      height: MediaQuery.of(context).size.height / 2,
+      height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       // child: BezierChart(
       //   fromDate: _getFromDate(),
@@ -38,9 +38,11 @@ class DailyChart extends StatelessWidget {
       child: charts.TimeSeriesChart(
         _getDataSeries(),
         animate: true,
-        defaultRenderer: charts.BarRendererConfig<DateTime>(),
-        defaultInteractions: true,
-        behaviors: [charts.SelectNearest(), charts.DomainHighlighter()],
+        // defaultRenderer: charts.BarRendererConfig<DateTime>(),
+        // defaultInteractions: true,
+        // behaviors: [charts.SelectNearest(), charts.DomainHighlighter()],
+        defaultRenderer: charts.LineRendererConfig(),
+        dateTimeFactory: const charts.LocalDateTimeFactory(),
       ),
     );
   }
