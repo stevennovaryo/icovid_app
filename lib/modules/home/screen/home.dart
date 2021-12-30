@@ -1,6 +1,8 @@
 // TEMPORARY HOME SCREEN
 // TODO: ADD REAL HOME SCREEN
 
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/modules/auth/auth.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
@@ -38,7 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            const LogoutButton()
+            const LogoutButton(),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/tracker');
+              }, 
+              child: const Text("Tracker"),
+            )
           ],
         ),
       ),

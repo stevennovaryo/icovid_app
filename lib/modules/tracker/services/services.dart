@@ -93,3 +93,21 @@ Future<DataHarianCovid> fetchDataHarianCovid(int count) async {
     throw Exception('Failed to get daily data');
   }
 }
+
+Future<dynamic> updateFilter(int chart_type, String number_of_data) async {
+  Map<String, String> postData = {
+    "username": networkService.username,
+    "chart_type": chart_type.toString(),
+    "number_of_data": number_of_data,
+  };
+
+  return await networkService.csrfProtectedPost(URL_UPDATE, postData, null);
+}
+
+Future<dynamic> getFilter() async {
+  Map<String, String> postData = {
+    "username": networkService.username,
+  };
+
+  return await networkService.csrfProtectedPost(URL_GET, postData, null);
+}

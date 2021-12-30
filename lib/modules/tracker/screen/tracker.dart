@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:icovid_app/modules/tracker/widgets/statistic_card.dart';
 import 'package:icovid_app/modules/tracker/services/services.dart';
 import 'package:icovid_app/modules/tracker/widgets/daily_chart.dart';
+import 'package:icovid_app/modules/auth/widgets/snack_bar.dart';
 
 class TrackerScreen extends StatefulWidget {
   const TrackerScreen({ Key? key }) : super(key: key);
@@ -12,7 +14,10 @@ class TrackerScreen extends StatefulWidget {
 
 class _TrackerScreenState extends State<TrackerScreen> {
 
+  final _filterFormKey = GlobalKey<FormState>();
+
   late TextEditingController _namaProvinsiController;
+  late TextEditingController _jumlahDataController;
   int _positif = 0;
   int _sembuh = 0;
   int _meninggal = 0;
@@ -23,6 +28,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
   String _datasettype = "harian";
   int _datacount = 7;
   int _radioValue = 0;
+  // int _filterRadioValue = 2;
+
+  bool _isLoading = false;
 
   Future _getDataNasional() async {
     dynamic response = await fetchDataCovid('Nasional');
@@ -57,13 +65,16 @@ class _TrackerScreenState extends State<TrackerScreen> {
   void initState(){
     super.initState();
     _namaProvinsiController = TextEditingController();
+    _jumlahDataController = TextEditingController();
     _getDataNasional();
-    _getDataHarian(_datacount);
+    _getFilter();
+    // _getDataHarian(_datacount);
   }
 
   @override
   void dispose(){
     _namaProvinsiController.dispose();
+    _jumlahDataController.dispose();
 
     super.dispose();
   }
@@ -190,9 +201,214 @@ class _TrackerScreenState extends State<TrackerScreen> {
             )
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _openFilterDialog,
+          tooltip: 'Chart Settings',
+          child: const Icon(Icons.settings),
+        ),
       ),
     );
   }
+
+  String? formValidator(value){
+    if (value == null || value.isEmpty) {
+      return 'Please fill this form';
+    }
+    if (int.parse(value) < 7 || int.parse(value) > 30){
+      return 'Tolong masukkan angka antara 7 sampai 30';
+    }
+    return null;
+  }
+
+  Future _openFilterDialog() => showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      int _filterRadioValue;
+      if (_datasettype == 'harian'){
+        _filterRadioValue = 2;
+      }
+      else {
+        _filterRadioValue = 1;
+      }
+      return AlertDialog(
+        title: Text('Chart Settings'),
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Form(
+              key: _filterFormKey,
+              child: Column(
+                children: [
+                  Radio(
+                    value: 1, 
+                    groupValue: _filterRadioValue, 
+                    onChanged: (int? value) {
+                      setState(() {
+                        _filterRadioValue = value!;
+                      });
+                    },
+                  ),
+                  Text(
+                    'Data Kumulatif',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Radio(
+                    value: 2, 
+                    groupValue: _filterRadioValue, 
+                    onChanged: (int? value) {
+                      setState(() {
+                        _filterRadioValue = value!;
+                      });
+                    },
+                  ),
+                  Text(
+                    'Data Harian',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Jumlah Data',
+                      hintText: 'Masukan antara 7-30 (inklusif)',
+                    ),
+                    controller: _jumlahDataController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    validator: formValidator,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        actions: [
+          TextButton(
+            child: Text('SUBMIT'),
+            onPressed: () async {
+              if (_isLoading) return;
+              setState(() {
+                _isLoading = true;
+              });
+
+              try {
+                dynamic response = await updateFilter(_filterRadioValue, _jumlahDataController.text);
+                Map<String, dynamic> data = response['data'];
+                if (response['status'] == 200){
+                  setState(() {
+                    _datacount = int.parse(_jumlahDataController.text);
+                    if (_filterRadioValue == 2){
+                      _datasettype = 'harian';
+                    }
+                    else{
+                      _datasettype = 'kumulatif';
+                    }
+                  });
+                  _getDataHarian(_datacount);
+                  showSnackBar(context, data['message']);
+                }
+                else{
+                  showSnackBar(context, data['message']);
+                }
+              } catch (e) {
+                showSnackBar(context, e.toString());
+              }
+              setState(() {
+                _isLoading = false;
+              });
+              Navigator.of(context).pop();
+              _jumlahDataController.clear();
+            },
+          )
+        ],
+      );
+    },
+    
+    // builder: (context) => AlertDialog(
+    //   title: Text('Chart Settings'),
+    //   content: Form(
+    //     key: _filterFormKey,
+    //     child: Column(
+    //       children: [
+    //         Radio(
+    //           value: 1, 
+    //           groupValue: _filterRadioValue, 
+    //           onChanged: (int? value) {
+    //             setState(() {
+    //               _filterRadioValue = value!;
+    //             });
+    //           },
+    //         ),
+    //         Text(
+    //           'Data Kumulatif',
+    //           style: TextStyle(fontSize: 16),
+    //         ),
+    //         Radio(
+    //           value: 2, 
+    //           groupValue: _filterRadioValue, 
+    //           onChanged: (int? value) {
+    //             setState(() {
+    //               _filterRadioValue = value!;
+    //             });
+    //           },
+    //         ),
+    //         Text(
+    //           'Data Harian',
+    //           style: TextStyle(fontSize: 16),
+    //         ),
+    //         TextFormField(
+    //           decoration: const InputDecoration(
+    //             labelText: 'Jumlah Data',
+    //             hintText: 'Masukan antara 7-30 (inklusif)',
+    //           ),
+    //           controller: _jumlahDataController,
+    //           keyboardType: TextInputType.number,
+    //           inputFormatters: <TextInputFormatter>[
+    //             FilteringTextInputFormatter.digitsOnly
+    //           ],
+    //           validator: formValidator,
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+      // actions: [
+      //   TextButton(
+      //     child: Text('SUBMIT'),
+      //     onPressed: () async {
+      //       if (_isLoading) return;
+      //       setState(() {
+      //         _isLoading = true;
+      //       });
+
+      //       try {
+      //         dynamic response = await updateFilter(_filterRadioValue, _jumlahDataController.text);
+      //         Map<String, dynamic> data = response['data'];
+      //         if (response['status'] == 200){
+      //           setState(() {
+      //             _datacount = int.parse(_jumlahDataController.text);
+      //             if (_filterRadioValue == 2){
+      //               _datasettype = 'harian';
+      //             }
+      //             else{
+      //               _datasettype = 'kumulatif';
+      //             }
+      //           });
+      //           _getDataHarian(_datacount);
+      //           showSnackBar(context, data['message']);
+      //         }
+      //         else{
+      //           showSnackBar(context, data['message']);
+      //         }
+      //       } catch (e) {
+      //         showSnackBar(context, e.toString());
+      //       }
+      //       setState(() {
+      //         _isLoading = false;
+      //       });
+      //       Navigator.of(context).pop();
+      //       _jumlahDataController.clear();
+      //     },
+      //   )
+  );
 
   Future<String?> _openDialog() => showDialog<String>(
     context: context,
@@ -222,5 +438,34 @@ class _TrackerScreenState extends State<TrackerScreen> {
       if (value == 1) _dataname = 'Sembuh';
       if (value == 2) _dataname = 'Meninggal';
     });
+  }
+
+  void _getFilter() async {
+    try {
+      dynamic response = await getFilter();
+      Map<String, dynamic> data = response['data'];
+      if (response['status'] == 200){
+        setState(() {
+          _datacount = data['number_of_data'];
+          //_filterRadioValue = data['chart_type'];
+          if (data['chart_type'] == 2){
+            _datasettype = 'harian';
+          }
+          else{
+            _datasettype = 'kumulatif';
+          }
+        });
+        _getDataHarian(_datacount);
+        showSnackBar(context, data['message']);
+      }
+      else{
+        showSnackBar(context, data['message']);
+        _getDataHarian(7);
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString());
+      _getDataHarian(7);
+    }
+    
   }
 }
