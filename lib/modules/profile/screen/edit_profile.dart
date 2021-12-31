@@ -116,7 +116,7 @@ class _EditProfileState extends State<EditProfile> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                     image: ExactAssetImage(
-                                        'assets/images/default_avatar.png'),
+                                        'lib/modules/profile/assets/avatar_2.png'),
                                     fit: BoxFit.cover,
                                   ),
                                 )),

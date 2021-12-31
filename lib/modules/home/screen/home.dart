@@ -1,11 +1,11 @@
 // TEMPORARY HOME SCREEN
 // TODO: ADD REAL HOME SCREEN
 
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
-// import 'package:icovid_kw/modules/profile/profile.dart';
+import 'package:icovid_app/modules/auth/widgets/logout_button.dart';
 import 'package:icovid_app/modules/profile/screen/profile.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
 
 class MyHomePage extends StatefulWidget {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Profile(),
+            const LogoutButton(),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/profile');

@@ -15,7 +15,7 @@ class _CustomeAppBar extends State<AppBariCovid> {
   Widget build(BuildContext){
     return AppBar(
       leading: Container(
-        child: const Image(image: AssetImage('assets/logo_icovid.png')),
+        child: const Image(image: AssetImage('lib/modules/profile/assets/logo_icovid.png')),
         margin: const EdgeInsets.fromLTRB(10, 15, 10, 15),
       ),
       title: const Text('iCovid'),

@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                     image: ExactAssetImage(
-                                        'assets/images/infected_avatar.png'),
+                                        'lib/modules/profile/assets/avatar_2.png'),
                                     fit: BoxFit.cover,
                                   )),
                             ),
