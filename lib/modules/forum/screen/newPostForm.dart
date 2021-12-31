@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/modules/forum/services/services.dart';
 import 'package:icovid_app/modules/home/screen/home.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +67,7 @@ class _PostFormState extends State<PostFormPage> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                       Map<String, dynamic> newPostData = {
+                      'username': networkService.username,
                       'topic': topic,
                       'description': description,
                     };

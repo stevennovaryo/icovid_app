@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-
 import 'package:icovid_app/modules/forum/screen/constants.dart';
 import 'package:http/http.dart' as http;
 
