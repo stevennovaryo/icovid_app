@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 // Taken From https://flutterawesome.com/flutter-application-for-showing-covid-19-stats/
 // https://github.com/wal33d006/novel_covid_19
 
-final RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+final RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
 //final Function mathFunc = (Match match) => '${match[1]},';
 
 String mathFunc(Match match) => '${match[1]},';

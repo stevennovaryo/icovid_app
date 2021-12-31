@@ -104,8 +104,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    child: Text("GRAFIK " + _datasettype.toUpperCase(), style: TextStyle(fontSize: 22),),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: Text("GRAFIK " + _datasettype.toUpperCase(), style: const TextStyle(fontSize: 22),),
                   ),
                 ),
                 DailyChart(
@@ -121,7 +121,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       groupValue: _radioValue, 
                       onChanged: _onRadioChanged,
                     ),
-                    Text(
+                    const Text(
                       'Positif',
                       style: TextStyle(fontSize: 16),
                     ),
@@ -130,7 +130,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       groupValue: _radioValue, 
                       onChanged: _onRadioChanged,
                     ),
-                    Text(
+                    const Text(
                       'Sembuh',
                       style: TextStyle(fontSize: 16),
                     ),
@@ -139,7 +139,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       groupValue: _radioValue, 
                       onChanged: _onRadioChanged,
                     ),
-                    Text(
+                    const Text(
                       'Meninggal',
                       style: TextStyle(fontSize: 16),
                     ),
@@ -151,8 +151,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
               children: <Widget>[
                 Center(
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    child: Text("DATA " + _namaData, style: TextStyle(fontSize: 22),),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: Text("DATA " + _namaData, style: const TextStyle(fontSize: 22),),
                   ),
                 ),
                 StatisticCard(
@@ -231,7 +231,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
         _filterRadioValue = 1;
       }
       return AlertDialog(
-        title: Text('Chart Settings'),
+        title: const Text('Chart Settings'),
         content: StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Form(
@@ -247,7 +247,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       });
                     },
                   ),
-                  Text(
+                  const Text(
                     'Data Kumulatif',
                     style: TextStyle(fontSize: 16),
                   ),
@@ -260,7 +260,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       });
                     },
                   ),
-                  Text(
+                  const Text(
                     'Data Harian',
                     style: TextStyle(fontSize: 16),
                   ),
@@ -283,7 +283,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
         ),
         actions: [
           TextButton(
-            child: Text('SUBMIT'),
+            child: const Text('SUBMIT'),
             onPressed: () async {
               if (_isLoading) return;
               setState(() {
@@ -413,15 +413,15 @@ class _TrackerScreenState extends State<TrackerScreen> {
   Future<String?> _openDialog() => showDialog<String>(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Nama Provinsi'),
+      title: const Text('Nama Provinsi'),
       content: TextField(
         autofocus: true,
-        decoration: InputDecoration(hintText: 'Masukan nama provinsi'),
+        decoration: const InputDecoration(hintText: 'Masukan nama provinsi'),
         controller: _namaProvinsiController,
       ),
       actions: [
         TextButton(    
-          child: Text('SUBMIT'),
+          child: const Text('SUBMIT'),
           onPressed: () {
             Navigator.of(context).pop(_namaProvinsiController.text);
             _namaProvinsiController.clear();

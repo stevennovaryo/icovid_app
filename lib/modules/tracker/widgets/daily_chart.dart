@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 //import 'package:bezier_chart/bezier_chart.dart';
@@ -7,6 +9,7 @@ class DailyChart extends StatelessWidget {
   final String dataname;
   final String datasettype;
 
+  // ignore: use_key_in_widget_constructors
   DailyChart({
     required this.dataset,
     required this.dataname,
@@ -15,12 +18,12 @@ class DailyChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (dataset.length == 0){
-      return Center(
+    if (dataset.isEmpty){
+      return const Center(
         child: Text('No Data Found'),
       );
     }
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       // child: BezierChart(
@@ -54,10 +57,10 @@ class DailyChart extends StatelessWidget {
     return DateTime(int.parse(date[0]), int.parse(date[1]), int.parse(date[2]));
   }
 
-  DateTime _getToDate(){
-    DateTime cur = _getFromDate();
-    return cur.add(Duration(days: dataset.length-1));
-  }
+  // DateTime _getToDate(){
+  //   DateTime cur = _getFromDate();
+  //   return cur.add(Duration(days: dataset.length-1));
+  // }
 
   List<charts.Series<TimeSeriesSales, DateTime>> _getDataSeries() {
     List<TimeSeriesSales> data = List.filled(dataset.length, TimeSeriesSales(DateTime.now(), 0));

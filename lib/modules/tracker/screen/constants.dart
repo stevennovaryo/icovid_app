@@ -1,3 +1,4 @@
+// ignore_for_file: constant_identifier_names
 import 'package:icovid_app/core/services/constants.dart';
 
 const String URL_NASIONAL = 'https://apicovid19indonesia-v2.vercel.app/api/indonesia';

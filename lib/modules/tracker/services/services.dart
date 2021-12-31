@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:icovid_app/core/services/request.dart';
 import 'package:icovid_app/modules/tracker/screen/constants.dart';
 import 'dart:convert';
