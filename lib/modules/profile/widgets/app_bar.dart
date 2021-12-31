@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:icovid_app/modules/profile/screen/profile.dart';
+import 'package:icovid_app/modules/profile/screen/other_user_profile.dart';
 import 'package:icovid_app/modules/profile/screen/edit_profile.dart';
 
 class AppBariCovid extends StatefulWidget {

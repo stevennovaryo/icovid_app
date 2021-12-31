@@ -53,9 +53,15 @@ Future<List<dynamic>> fetchProfile() async {
 //   return await networkService.csrfProtectedPost(PROFILE_PAGE_URL, postData, null);
 // }
 
-Future<dynamic> getProfile() async {
+Future<DataProfile> getProfile() async {
   Map<String, String> postData = {
     "username": networkService.username,
+    "name": networkService.name,
+    "email": networkService.email,
+    "phone": networkService.phone,
+    "city": networkService.city,
+    "status": networkService.hs,
+    "vaccinated_status": networkService.vs,
   };
 
   return await networkService.csrfProtectedPost(PROFILE_GET_URL, postData, null);

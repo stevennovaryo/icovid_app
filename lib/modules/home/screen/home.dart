@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/modules/auth/widgets/logout_button.dart';
-import 'package:icovid_app/modules/profile/screen/profile.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
+import 'package:icovid_app/modules/profile/screen/other_user_profile.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -46,8 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, '/profile');
               }, 
-              child: const Text("Profile"),
-            )
+              child: const Text("Your Profile"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/otherprofiles');
+              }, 
+              child: const Text("See other user profiles!"),
+            ), 
           ],
         ),
       ),

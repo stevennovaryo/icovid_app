@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:icovid_app/core/services/request.dart';
 import 'package:icovid_app/modules/profile/widgets/app_bar.dart';
-
-import 'edit_profile.dart';
 
 // void main() {
 //   // menjalankan
@@ -23,11 +21,11 @@ import 'edit_profile.dart';
 //   ));
 // }
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class OtherUserProfile extends StatefulWidget {
+  const OtherUserProfile({Key? key}) : super(key: key);
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _OtherProfileState createState() => _OtherProfileState();
 }
 
 
@@ -45,7 +43,7 @@ Future<List<dynamic>> fetchProfile() async {
   }
 }
 
-class _ProfileState extends State<Profile> {
+class _OtherProfileState extends State<OtherUserProfile> {
   late Future<List<dynamic>> futureProfile;
 
   @override
@@ -73,12 +71,11 @@ class _ProfileState extends State<Profile> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     return Container(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            Column(children: [(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Card(
+                          child: Column(children: [(
                               const Text(
-                                'Profile',
+                                '\n' + 'Profile' + '\n',
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
                                 textAlign: TextAlign.center,
                               )
@@ -95,76 +92,20 @@ class _ProfileState extends State<Profile> {
                                   )),
                             ),
                             Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(25.0),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.blue.shade300,
-                                  ),
-                                  child: const Text('Edit Profile'),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) => EditProfile(
-                                                  getData: snapshot.data!,
-                                                )));
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                snapshot.data![index]['fields']['bio'],
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: const Text(
-                                'About',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 23.0,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Container(
                               child: Row(
                                 children: [
                                   Container(
                                     padding: EdgeInsets.all(25.0),
-                                    child: Icon(Icons.people,
+                                    child: Icon(Icons.person_rounded,
                                         color: Colors.blue.shade300),
                                   ),
                                   Expanded(
                                     child: Text(
-                                      snapshot.data![index]['fields']['name'],
+                                    snapshot.data![index]['fields']['name'],
                                       style: const TextStyle(
-                                        fontSize: 15.0,
+                                        fontSize: 16.0,
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(25.0),
-                                    child: Icon(Icons.email,
-                                        color: Colors.blue.shade300),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      snapshot.data![index]['fields']['email'],
-                                      style: const TextStyle(
-                                        fontSize: 15.0,
-                                      ),
-                                    ),
                                   )
                                 ],
                               ),
@@ -236,8 +177,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      snapshot.data![index]['fields']
-                                          ['vaccinated_status'],
+                                      snapshot.data![index]['fields']['vaccinated_status'],
                                       style: const TextStyle(
                                         fontSize: 15.0,
                                       ),
@@ -246,8 +186,27 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(25.0),
+                                    child: Icon(Icons.contact_mail_rounded,
+                                        color: Colors.blue.shade300),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      snapshot.data![index]['fields']['bio'],
+                                      style: const TextStyle(
+                                        fontSize: 15.0,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
-                        )]));
+                        )));
                   },
                 );
               } else if (snapshot.hasError) {
