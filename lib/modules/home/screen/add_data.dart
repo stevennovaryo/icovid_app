@@ -4,7 +4,7 @@ import 'package:icovid_app/modules/home/screen/feedbacklist.dart' ;
 
 Future<dynamic> addNewFeedback(Feedbackk feedbackData) async {
   var url = Uri.parse(
-      'http://127.0.0.1:8000/home/add-data');
+      'https://icovid-id.herokuapp.com/home/add-data');
   var response = await http.post(url,
       headers: {
         "Access-Control_Allow_Origin": "*",

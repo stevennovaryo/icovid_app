@@ -5,11 +5,11 @@ import 'package:icovid_app/modules/home/screen/add_data.dart';
 import 'package:icovid_app/modules/home/screen/home.dart';
 import 'package:http/http.dart' as http;
 
-Future<Feedbackk> createFeedback(
+Future<void> createFeedback(
     String pengirim, String message, String ratings) async {
   final response = await http.post(
     Uri.parse(
-      'http://10.0.2.2:8000/home/add-data',
+      'https://icovid-id.herokuapp.com/home/add-data',
     ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -25,7 +25,7 @@ Future<Feedbackk> createFeedback(
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
     print(response.body);
-    return Feedbackk.fromJson(jsonDecode(response.body));
+    // return Feedbackk.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
         ElevatedButton(
           onPressed: () {
             setState(() {
-              _futureFeedback = createFeedback(
+              createFeedback(
                   _controller.text, _controller2.text, _controller3.text);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return const MyHomePage();

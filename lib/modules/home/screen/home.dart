@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             body:Container(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(children: <Widget>[
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             )),
                       ]),
                   Container(
-                      margin: const EdgeInsets.only(top: 40.0, bottom: 20.0),
+                      margin: const EdgeInsets.only(top: 30.0, bottom: 15.0),
                       child: Center(
                           child: Text("Look for latest news",
                               style: TextStyle(
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           //child: new Image.asset('assets/virus.jpg'),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(bottom: 20.0),
+                          margin: const EdgeInsets.only(bottom: 15.0),
                           decoration: BoxDecoration(
                             color: Colors.lightBlue[100],
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           //child: new Image.asset('assets/virus.jpg'),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(bottom: 20.0),
+                          margin: const EdgeInsets.only(bottom: 15.0),
                           decoration: BoxDecoration(
                             color: Colors.lightBlue[100],
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Container(
                                 margin: const EdgeInsets.only(left: 20.0),
                                 width: 150,
-                                height: 120,
+                                height: 100,
                                 ),
                             Container(
                                 margin: const EdgeInsets.only(left: 20.0),
