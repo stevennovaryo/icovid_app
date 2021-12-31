@@ -342,37 +342,37 @@ class _ProfileScreenState extends State<ProfileScreenEdit>
                                   ),
                                 ],
                               )),
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 25.0, right: 25.0, top: 25.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      child: const Text(
-                                        'Healthy Status',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    flex: 2,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: const Text(
-                                        'Vaccination Status',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    flex: 2,
-                                  ),
-                                ],
-                              )),
+                          // Padding(
+                          //     padding: const EdgeInsets.only(
+                          //         left: 25.0, right: 25.0, top: 25.0),
+                          //     child: Row(
+                          //       mainAxisSize: MainAxisSize.max,
+                          //       mainAxisAlignment: MainAxisAlignment.start,
+                          //       children: <Widget>[
+                          //         Expanded(
+                          //           child: Container(
+                          //             child: const Text(
+                          //               'Healthy Status',
+                          //               style: TextStyle(
+                          //                   fontSize: 16.0,
+                          //                   fontWeight: FontWeight.bold),
+                          //             ),
+                          //           ),
+                          //           flex: 2,
+                          //         ),
+                          //         Expanded(
+                          //           child: Container(
+                          //             child: const Text(
+                          //               'Vaccination Status',
+                          //               style: TextStyle(
+                          //                   fontSize: 16.0,
+                          //                   fontWeight: FontWeight.bold),
+                          //             ),
+                          //           ),
+                          //           flex: 2,
+                          //         ),
+                          //       ],
+                          //     )),
                           Padding(
                               padding: const EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 2.0),
@@ -386,7 +386,7 @@ class _ProfileScreenState extends State<ProfileScreenEdit>
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
-                                        !_status ? _getVaccinationStatus() : Container(),
+                                        _status ? _getVaccinationStatus() : Container(),
                                       ],
                                     ),
                                     flex: 2,
@@ -397,7 +397,7 @@ class _ProfileScreenState extends State<ProfileScreenEdit>
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          !_status? _getHealthyStatus() : Container(),
+                                          _status? _getHealthyStatus() : Container(),
                                         ]),
                                     flex: 2,
                                   ),
