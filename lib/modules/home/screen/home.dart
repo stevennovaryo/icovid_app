@@ -1,6 +1,5 @@
 // TEMPORARY HOME SCREEN
 // TODO: ADD REAL HOME SCREEN
-
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/modules/auth/auth.dart';
@@ -30,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar: AppBar(
               title: Text("iCovid Home"),
             ),
+
             body:Container(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -206,6 +206,28 @@ class _MyHomePageState extends State<MyHomePage> {
             )
             )
             ;
+
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const LogoutButton(),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/tracker');
+              }, 
+              child: const Text("Tracker"),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+
   }
 
 }
