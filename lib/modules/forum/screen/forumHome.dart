@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icovid_app/modules/forum/services/services.dart';
 import 'package:icovid_app/modules/forum/widgets/new_forum_button.dart';
+import 'package:icovid_app/modules/forum/widgets/posts.dart';
 
 class ForumHome extends StatefulWidget {
     const ForumHome({Key? key}) : super(key: key);
@@ -53,24 +54,5 @@ class _ForumHomeState extends State<ForumHome> {
 		);
 	}
 
-	Widget thumbify(ForumPost forumPost) {
-		return Container(
-			padding: const EdgeInsets.all(3.0),
-			margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
-			decoration: const BoxDecoration(
-				color: Colors.grey,
-				borderRadius: BorderRadius.all(Radius.circular(15.0)),
-			),
-			child: ListTile(
-			title: Text(forumPost.topic),
-			subtitle: Text(forumPost.author),
-			leading: const Icon(
-				Icons.dashboard,
-				color: Colors.grey,
-			),
-			
-			// onTap: () {Navigator.pushNamed(context, '/forum/' + forumPost.slug);},
-			),
-		);
-	}
+	
 }
