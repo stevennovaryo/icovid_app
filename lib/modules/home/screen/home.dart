@@ -1,8 +1,5 @@
 // TEMPORARY HOME SCREEN
 // TODO: ADD REAL HOME SCREEN
-
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:icovid_app/core/core.dart';
 import 'package:icovid_app/modules/auth/auth.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
