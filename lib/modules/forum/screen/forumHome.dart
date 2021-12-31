@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icovid_app/modules/forum/services/services.dart';
+import 'package:icovid_app/modules/forum/widgets/new_forum_button.dart';
 
 class ForumHome extends StatefulWidget {
     const ForumHome({Key? key}) : super(key: key);
@@ -22,7 +23,8 @@ class _ForumHomeState extends State<ForumHome> {
     }
     setState(() {
       _forumList = _tmp_list;
-      _forumThumbList = _tmp;
+      _forumThumbList =_tmp;
+      _forumThumbList.add(const NewForumButton());
     });
   }
 
@@ -46,7 +48,7 @@ class _ForumHomeState extends State<ForumHome> {
 				// 	thumbify(ForumPost("Ius", "Hai, dunia! 3", "Ngetest", "10-11-2021")),
 				// 	thumbify(ForumPost("Bhis", "Hai, dunia! 4", "Ngetest", "10-11-2021")),
 				// ]
-        _forumThumbList,
+        _forumThumbList
 			),
 		);
 	}
@@ -67,7 +69,7 @@ class _ForumHomeState extends State<ForumHome> {
 				color: Colors.grey,
 			),
 			
-			// onTap: () {Navigator.pushNamed(context, '/forum/1');},
+			// onTap: () {Navigator.pushNamed(context, '/forum/' + forumPost.slug);},
 			),
 		);
 	}

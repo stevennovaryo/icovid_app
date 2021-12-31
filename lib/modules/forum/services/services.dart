@@ -22,6 +22,7 @@ class ForumPost {
 }	
 
 
+
 Future<List<ForumPost> > fetchForumList() async {
 	final response = await http.get(Uri.parse(URL_FORUM_LIST));
 	List<ForumPost> listPost = <ForumPost>[];
@@ -49,4 +50,9 @@ Future<List<ForumPost> > fetchForumList() async {
 	else {
 		throw Exception("Failed to get Forum List");
 	}
+}
+
+sendNewPost(newPost) async {
+	http.Response response = await http.post(Uri.parse(URL_NEW_FORUM), body: json.encode(newPost));
+	print(response.body);
 }

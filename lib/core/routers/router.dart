@@ -1,7 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:icovid_app/modules/auth/screen/login.dart';
 import 'package:icovid_app/modules/auth/screen/register.dart';
+import 'package:icovid_app/modules/forum/screen/forumDetail.dart';
+import 'package:icovid_app/modules/forum/screen/newPostForm.dart';
 import 'package:icovid_app/modules/home/screen/home.dart';
 import 'package:icovid_app/modules/forum/screen/forumHome.dart';
 
@@ -12,4 +13,7 @@ Map<String, Widget Function(BuildContext)> icovidRoutes = {
   '/register': (context) => const RegisterScreen(),
   '/home': (context) => const MyHomePage(),
   '/forumHome': (context) => const ForumHome(),
+  '/addForum': (context) => const PostFormPage(),
+  // '/forum/<str:slug>': (context) => const ForumDetail(),
+
 };
