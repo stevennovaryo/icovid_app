@@ -13,7 +13,7 @@ Map<String, Widget Function(BuildContext)> icovidRoutes = {
   '/register': (context) => const RegisterScreen(),
   '/home': (context) => const MyHomePage(),
   '/forumHome': (context) => const ForumHome(),
-  '/addForum': (context) => const PostFormPage(),
+  '/newForum': (context) => const PostFormPage(),
   // '/forum/<str:slug>': (context) => const ForumDetail(),
 
 };

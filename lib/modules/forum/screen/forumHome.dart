@@ -24,8 +24,8 @@ class _ForumHomeState extends State<ForumHome> {
     }
     setState(() {
       _forumList = _tmp_list;
-      _forumThumbList =_tmp;
-      _forumThumbList.add(const NewForumButton());
+      _forumThumbList = [const NewForumButton()];
+      _forumThumbList.addAll(_tmp);
     });
   }
 
@@ -40,17 +40,19 @@ class _ForumHomeState extends State<ForumHome> {
 	Widget build(BuildContext context) {
 		return Scaffold(
 			appBar: AppBar(title: const Text("ICovid - Forum")),
-			body: Column(
-				crossAxisAlignment: CrossAxisAlignment.stretch,
-				children: 
-        // [
-				// 	thumbify(ForumPost(author: "Greg", topic: "Hai, dunia! 1", description: "Ngetest", date_created: "10-11-2021", sl"hai-1" )),
-				// 	thumbify(ForumPost("Or", "Hai, dunia! 2", "Ngetest", "10-11-2021", "hai-2")),
-				// 	thumbify(ForumPost("Ius", "Hai, dunia! 3", "Ngetest", "10-11-2021")),
-				// 	thumbify(ForumPost("Bhis", "Hai, dunia! 4", "Ngetest", "10-11-2021")),
-				// ]
-        _forumThumbList
-			),
+			body: SingleChildScrollView(
+          child : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: 
+            // [
+            // 	thumbify(ForumPost(author: "Greg", topic: "Hai, dunia! 1", description: "Ngetest", date_created: "10-11-2021", sl"hai-1" )),
+            // 	thumbify(ForumPost("Or", "Hai, dunia! 2", "Ngetest", "10-11-2021", "hai-2")),
+            // 	thumbify(ForumPost("Ius", "Hai, dunia! 3", "Ngetest", "10-11-2021")),
+            // 	thumbify(ForumPost("Bhis", "Hai, dunia! 4", "Ngetest", "10-11-2021")),
+            // ]
+            _forumThumbList
+          ),
+      )
 		);
 	}
 
