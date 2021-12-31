@@ -10,6 +10,7 @@ import 'package:icovid_app/modules/home/screen/form.dart';
 import 'package:icovid_app/modules/home/screen/formulir.dart';
 import 'package:icovid_app/modules/home/screen/feedbacklist.dart'; // EXAMPLE OF IMPORTING AUTH LIBRARY
 import 'package:icovid_app/modules/auth/services/services.dart';
+import 'package:icovid_app/modules/news/home.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -22,57 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text("Welcome ${networkService.username}"),
-  //     ),
-  //     body: Center(
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: <Widget>[
-  //           const Text(
-  //             'You have pushed the button this many times:',
-  //           ),
-  //           Text(
-  //             '$_counter',
-  //             style: Theme.of(context).textTheme.headline4,
-  //           ),
-  //           const LogoutButton(),
-  //           TextButton(
-  //                 style: ButtonStyle(
-  //                   foregroundColor:
-  //                       MaterialStateProperty.all<Color>(Colors.blue),
-  //                 ),
-  //                 onPressed: () {
-  //                   Navigator.push(context,
-  //                       MaterialPageRoute(builder: (context) {
-  //                     return MyApp() ;
-  //                   }));
-  //                 },
-  //                 child: Text('Leave Us Feedback'),
-  //               ),
-  //           TextButton(
-  //                 style: ButtonStyle(
-  //                   foregroundColor:
-  //                       MaterialStateProperty.all<Color>(Colors.blue),
-  //                 ),
-  //                 onPressed: () {
-  //                   Navigator.push(context,
-  //                       MaterialPageRoute(builder: (context) {
-  //                     return MyFeedbackPage();
-  //                   }));
-  //                 },
-  //                 child: Text('See feedbacks'),
-  //               )
-  //         ],
-  //       ),
-  //     ),
-      
-      
-  //      // This trailing comma makes auto-formatting nicer for build methods.
-  //   );
-  // }
+  
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
@@ -106,9 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                       margin: const EdgeInsets.only(top: 30.0, bottom: 15.0),
                       child: Center(
-                          child: Text("Look for latest news",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)))),
+                          child: TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Home() ;
+                    }));
+                  },
+                  child: Text('Look for latest news'),
+                ),)),
                   Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
